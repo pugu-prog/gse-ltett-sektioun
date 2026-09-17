@@ -1,0 +1,273 @@
+
+/* =========================================================
+   LTEtt – GSE Sektioun
+   Charte graphique LTEtt (Corporate Identity Book, 05/2021)
+   Primärfarben: Orange #f39100 · Grün #94c11a ·
+                  Hellblau #009ee3 · Dunkelblau #123661
+   Schrift: Rotis Sans Serif Std (Wortmarke) → Quicksand
+            Calibri (Alltag) → Carlito (metrikkompatibel, frei)
+   ========================================================= */
+
+:root{
+  /* Primärfarben (Charte graphique LTEtt) */
+  --orange:#f39100;
+  --green:#94c11a;
+  --lightblue:#009ee3;
+  --darkblue:#123661;
+
+  /* Sekundärfarben – Abstufungen der Primärfarben (80/60/40/20%) */
+  --orange-80:#f5a733;  --orange-60:#f8bd66;  --orange-40:#fad399;  --orange-20:#fde9cc;
+  --green-80:#a9cd48;   --green-60:#bfda76;    --green-40:#d4e6a3;   --green-20:#eaf3d1;
+  --lightblue-80:#33b1e9; --lightblue-60:#66c5ee; --lightblue-40:#99d8f4; --lightblue-20:#ccecf9;
+  --darkblue-80:#415e81; --darkblue-60:#7186a0; --darkblue-40:#a0afc0; --darkblue-20:#d0d7df;
+
+  --text:var(--darkblue);
+  --muted:#52647c;
+  --light:#f7fafc;
+  --soft:#eef7fb;
+  --shadow:0 18px 42px rgba(18,54,97,.16);
+
+  --font-heading:'Quicksand','Carlito',Calibri,'Segoe UI',Arial,sans-serif;
+  --font-body:'Carlito',Calibri,Candara,'Segoe UI',Optima,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font-body);background:var(--light);color:var(--text);line-height:1.6}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-heading);font-weight:700}
+
+.site-header{
+  position:sticky;top:0;z-index:10;background:rgba(255,255,255,.94);
+  backdrop-filter:blur(14px);display:flex;justify-content:space-between;align-items:center;
+  gap:26px;padding:14px 36px;box-shadow:0 2px 14px rgba(18,54,97,.10);
+  border-bottom:3px solid var(--lightblue)
+}
+.brand-zone{display:flex;align-items:center;gap:22px}
+.brand,.ltett-link{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+.brand span{display:flex;flex-direction:column}
+.brand strong{font-family:var(--font-heading);font-size:1.2rem;color:var(--darkblue)}
+.brand small{font-size:.82rem;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.divider{height:72px;width:1px;background:var(--darkblue);opacity:.25}
+.logo{object-fit:contain;background:white}
+.logo-ltett{height:82px;max-width:260px;padding:4px}
+.logo-gse{height:82px;width:82px;border-radius:50%}
+.main-nav{display:flex;gap:24px;align-items:center;font-weight:700}
+.main-nav a{text-decoration:none;color:var(--darkblue);padding:8px 0;border-bottom:3px solid transparent}
+.main-nav a:hover{color:var(--lightblue);border-bottom-color:var(--lightblue)}
+
+.gse-hero{
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:.9fr 1.35fr;gap:46px;align-items:center;
+  padding:70px 7vw;background:linear-gradient(90deg,#f2faf9,#eef6fb)
+}
+.hero-text{position:relative;z-index:2}
+.hero-text h1{font-size:clamp(2.6rem,5vw,4.8rem);line-height:1.05;margin:0 0 20px;color:var(--darkblue)}
+.hero-text p:not(.kicker){font-size:1.25rem;max-width:620px}
+.hero-card{
+  position:relative;z-index:2;
+  min-height:300px;border-radius:24px;overflow:hidden;background:
+  radial-gradient(circle at 80% 20%,rgba(0,158,227,.14),transparent 32%),
+  linear-gradient(135deg,var(--green-20),var(--lightblue-20));
+  display:grid;place-items:center;box-shadow:var(--shadow)
+}
+.hero-card>img.hero-icon{position:relative;z-index:3;width:min(380px,70%);filter:drop-shadow(0 12px 22px rgba(18,54,97,.18))}
+
+/* Grafische Elemente der Charte graphique – je ein Element pro Ecke, angeschnitten */
+.hero-card img.corner-logo{position:absolute;z-index:1;width:118px;opacity:.95;pointer-events:none;filter:none}
+.hero-card img.corner-logo.eco{top:-28px;left:-28px}
+.hero-card img.corner-logo.soz{top:-24px;right:-24px;width:100px}
+.hero-card img.corner-logo.eko{bottom:-28px;left:-28px}
+
+.section{max-width:1440px;margin:auto;padding:74px 7vw}
+.muted{max-width:none;background:var(--soft)}
+.muted>*{max-width:1440px;margin-left:auto;margin-right:auto}
+.kicker{color:var(--green);font-weight:900;text-transform:uppercase;letter-spacing:.08em;margin:0 0 8px}
+.section h2{font-size:clamp(2.1rem,3.8vw,3.8rem);line-height:1.05;color:var(--darkblue);margin:0}
+.section-text{color:var(--muted);font-size:1.15rem;max-width:980px}
+.mission-section{display:grid;grid-template-columns:.75fr 1.25fr;gap:46px;align-items:center;background:white;max-width:none}
+.mission-section>*{max-width:1440px}
+.mission-text h2{font-size:2.2rem}
+.mission-items{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.mission-items article{text-align:center;border-left:1px solid #e1e7ec;padding:0 20px}
+.mission-items span{font-size:42px;border-radius:50%;width:86px;height:86px;display:grid;place-items:center;margin:0 auto 16px}
+.mission-items article:nth-child(1) span{background:var(--green-20)}
+.mission-items article:nth-child(2) span{background:var(--orange-20)}
+.mission-items article:nth-child(3) span{background:var(--lightblue-20)}
+.mission-items article:nth-child(4) span{background:var(--green-20)}
+
+.theme-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+.theme-grid :is(article,a.theme-card){background:white;border-radius:14px;padding:25px 18px;text-align:center;box-shadow:0 10px 24px rgba(18,54,97,.10);border-top:4px solid var(--darkblue-20);display:block;text-decoration:none;color:inherit;transition:.2s ease}
+.theme-grid a.theme-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(18,54,97,.18)}
+.theme-grid :is(article,a.theme-card):nth-child(6n+1){border-top-color:var(--orange)}
+.theme-grid :is(article,a.theme-card):nth-child(6n+2){border-top-color:var(--green)}
+.theme-grid :is(article,a.theme-card):nth-child(6n+3){border-top-color:var(--lightblue)}
+.theme-grid :is(article,a.theme-card):nth-child(6n+4){border-top-color:var(--darkblue)}
+.theme-grid :is(article,a.theme-card):nth-child(6n+5){border-top-color:var(--orange)}
+.theme-grid :is(article,a.theme-card):nth-child(6n+6){border-top-color:var(--green)}
+.theme-grid span{font-size:42px}
+.theme-grid h3{margin:8px 0;color:var(--darkblue)}
+.theme-grid p{font-size:.95rem;color:var(--muted)}
+.theme-grid .see-more{display:inline-block;color:var(--lightblue);font-weight:800;text-decoration:none;margin-top:10px;font-size:.85rem}
+
+.horaire-layout{display:grid;grid-template-columns:2fr .85fr;gap:34px;align-items:start}
+.image-card{background:white;border-radius:24px;padding:16px;box-shadow:var(--shadow);overflow:hidden;margin:0}
+.image-card img{width:100%;border-radius:16px}
+.info-stack{display:grid;gap:22px}
+.info-card{background:white;border:1px solid #e1e7ec;border-radius:24px;padding:26px;box-shadow:0 10px 22px rgba(18,54,97,.08)}
+.info-card.soft{background:linear-gradient(135deg,var(--green-20),var(--lightblue-20))}
+.info-card h3{margin-top:0;font-size:1.45rem;color:var(--darkblue)}
+.info-card ul{padding-left:20px}
+.info-card li{margin:14px 0}
+
+.button{display:inline-block;padding:13px 20px;border-radius:10px;text-decoration:none;font-weight:900}
+.primary{background:var(--orange);color:white}
+.primary:hover{background:var(--orange-80)}
+.secondary{background:white;color:var(--darkblue);border:2px solid var(--darkblue)}
+.secondary:hover{background:var(--darkblue);color:white}
+
+.project-note{background:white;margin-top:28px;border-radius:24px;padding:28px;box-shadow:0 10px 24px rgba(18,54,97,.10)}
+.theme-links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.theme-links a{display:block;background:var(--green-20);color:var(--darkblue);text-decoration:none;font-weight:900;padding:16px 18px;border-radius:16px;border:1px solid var(--green-40)}
+
+.contact-bar{background:linear-gradient(90deg,var(--darkblue),var(--darkblue-80));color:white;padding:24px 7vw;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:center}
+.contact-bar a{color:white;text-decoration:none}
+.contact-bar .slogan{font-family:var(--font-heading);font-weight:700;letter-spacing:.01em}
+
+footer.site-footer{background:linear-gradient(90deg,var(--darkblue),var(--darkblue-80));color:white;padding:26px 7vw;text-align:center}
+footer.site-footer p{margin:4px 0;font-size:.95rem}
+footer.site-footer .slogan{font-family:var(--font-heading);font-weight:700;font-size:1.05rem}
+footer.site-footer a{color:white;text-decoration:underline}
+
+@media(max-width:1100px){
+  .gse-hero,.mission-section,.horaire-layout{grid-template-columns:1fr}
+  .theme-grid{grid-template-columns:repeat(2,1fr)}
+  .mission-items{grid-template-columns:repeat(2,1fr)}
+  .contact-bar{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .site-header{position:relative;flex-direction:column;align-items:flex-start}
+  .main-nav{flex-wrap:wrap;gap:14px}
+  .logo-ltett{height:64px}
+  .logo-gse{height:64px;width:64px}
+  .divider{display:none}
+  .theme-grid,.mission-items,.theme-links,.contact-bar{grid-template-columns:1fr}
+}
+
+/* Expanded project lists inside the 6 GSE theme cards */
+.themes-with-projects{
+  grid-template-columns:repeat(3,1fr);
+  align-items:stretch;
+}
+.themes-with-projects article{
+  text-align:left;
+  display:flex;
+  flex-direction:column;
+}
+.themes-with-projects article span{
+  text-align:center;
+  display:block;
+}
+.themes-with-projects article h3{
+  text-align:center;
+}
+.themes-with-projects article p{
+  text-align:center;
+  min-height:48px;
+}
+.themes-with-projects ul{
+  margin:14px 0 18px;
+  padding-left:20px;
+  font-size:.92rem;
+  line-height:1.45;
+  color:var(--text);
+  flex:1;
+}
+.themes-with-projects li{
+  margin:6px 0;
+}
+.themes-with-projects a{
+  align-self:center;
+}
+@media(max-width:1100px){
+  .themes-with-projects{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:760px){
+  .themes-with-projects{grid-template-columns:1fr;}
+}
+
+/* Final full-site update: GSE-Sektioun + horaire info layout */
+.horaire-section{
+  background:#fff;
+}
+.horaire-layout{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(320px,.95fr);
+  gap:34px;
+  align-items:start;
+}
+.horaire-card img{
+  width:100%;
+  border-radius:18px;
+}
+.info-stack{
+  display:grid;
+  gap:22px;
+}
+.button.secondary{
+  background:white;
+  color:var(--darkblue);
+  border:2px solid var(--darkblue);
+}
+@media(max-width:1100px){
+  .horaire-layout{grid-template-columns:1fr;}
+  .themes-with-projects{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:760px){
+  .themes-with-projects{grid-template-columns:1fr;}
+}
+
+.theme-buttons{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:24px;
+}
+.theme-buttons a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:72px;
+  background:var(--green-20);
+  color:var(--darkblue);
+  text-decoration:none;
+  font-weight:900;
+  font-size:1.15rem;
+  border-radius:18px;
+  border:1px solid var(--green-40);
+  transition:.2s ease;
+}
+.theme-buttons a:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 24px rgba(18,54,97,.14);
+  background:var(--lightblue-20);
+  border-color:var(--lightblue-40);
+}
+@media(max-width:900px){
+  .theme-buttons{grid-template-columns:1fr;}
+}
+
+.project-list-full{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px 24px;
+  margin-top:22px;
+  padding-left:20px;
+  font-size:1.05rem;
+}
+.project-list-full li{
+  margin:6px 0;
+}
+@media(max-width:900px){
+  .project-list-full{grid-template-columns:1fr;}
+}

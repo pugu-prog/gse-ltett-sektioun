@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="lb">
+<head>
+<meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=ai-legible&utm_source=comment&utm_medium=referral&utm_id=c885bac8-92c5-4bcd-991e-b0d4d171129b
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+<meta name="hosting-provider" content="Netlify">
+<meta name="netlify-deploy" content="https://netlify.new/?utm_campaign=ai-legible&amp;utm_source=meta&amp;utm_medium=referral&amp;utm_id=c885bac8-92c5-4bcd-991e-b0d4d171129b">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSE @ LTEtt – Ëmweltwëssenschaften</title>
+<meta name="description" content="GSE – Sciences Environnementales / Ëmweltwëssenschaften am Lycée Technique d’Ettelbruck.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ===== Grille Horaire (table recreation) ===== */
+  .horaire-table{background:white;border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+  .ht-block{border-bottom:1px solid #eef1f4}
+  .ht-head{display:flex;align-items:center;gap:10px;padding:12px 20px;color:white;font-family:var(--font-heading);font-weight:700;font-size:1.02rem}
+  .ht-head .ht-hcol{margin-left:auto;font-size:.85rem;opacity:.9}
+  .ht-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.25);display:inline-flex;align-items:center;justify-content:center;font-size:.9rem}
+  .ht-block.a .ht-head{background:linear-gradient(90deg,var(--green),var(--green-80))}
+  .ht-block.b .ht-head{background:linear-gradient(90deg,var(--darkblue),var(--darkblue-80))}
+  .ht-block.c .ht-head{background:linear-gradient(90deg,var(--lightblue),var(--lightblue-80))}
+  .ht-row{display:flex;align-items:center;gap:12px;padding:10px 20px;font-size:.95rem;border-top:1px solid #f1f4f6}
+  .ht-row .hrs{margin-left:auto;font-weight:800;color:var(--darkblue)}
+  .ht-total{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:var(--soft);font-family:var(--font-heading);font-weight:800;font-size:1.1rem;color:var(--darkblue)}
+
+  /* ===== GSE Projeten compact grid ===== */
+  .projects-compact{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+  .pc-card{background:white;border-radius:16px;padding:18px 16px;box-shadow:0 8px 20px rgba(18,54,97,.08);border-top:5px solid var(--accent)}
+  .pc-card h4{margin:8px 0 10px;font-size:1rem;color:var(--darkblue);text-align:center}
+  .pc-card .pc-icon{font-size:30px;display:block;text-align:center}
+  .pc-card ul{margin:0 0 10px;padding-left:18px;font-size:.82rem;color:var(--muted);line-height:1.5}
+  .pc-card a{display:block;text-align:center;font-size:.8rem;font-weight:800;color:var(--lightblue);text-decoration:none}
+  .pc-card:nth-child(1){--accent:var(--green)}
+  .pc-card:nth-child(2){--accent:var(--darkblue)}
+  .pc-card:nth-child(3){--accent:var(--lightblue)}
+  .pc-card:nth-child(4){--accent:var(--orange)}
+  .pc-card:nth-child(5){--accent:var(--green)}
+  .pc-card:nth-child(6){--accent:var(--orange)}
+  @media(max-width:1100px){.projects-compact{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:640px){.projects-compact{grid-template-columns:1fr 1fr}}
+
+  /* ===== Perspektiven fir d'Zukunft ===== */
+  .persp-wrap{background:white;border-radius:20px;padding:30px 34px;box-shadow:var(--shadow)}
+  .persp-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+  .persp-grid h4{font-family:var(--font-heading);color:var(--darkblue);margin:0 0 14px}
+  .persp-list{list-style:none;margin:0;padding:0}
+  .persp-list li{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--darkblue-20);font-size:.95rem}
+  .persp-list li span.ic{font-size:20px}
+  .persp-callouts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+  .persp-callouts div{background:var(--green-20);border-radius:14px;padding:16px 18px}
+  .persp-callouts div:last-child{background:var(--lightblue-20)}
+  .persp-callouts b{display:block;color:var(--darkblue);margin-bottom:4px;font-family:var(--font-heading)}
+  .persp-callouts p{margin:0;font-size:.9rem;color:var(--muted)}
+
+  /* ===== PPREN organisation ===== */
+  .ppren-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .ppren-col{background:white;border-radius:18px;overflow:hidden;box-shadow:0 8px 20px rgba(18,54,97,.08)}
+  .ppren-col h4{margin:0;padding:14px 18px;color:white;font-family:var(--font-heading);font-size:1rem}
+  .ppren-col:nth-child(1) h4{background:var(--green)}
+  .ppren-col:nth-child(2) h4{background:var(--orange)}
+  .ppren-col:nth-child(3) h4{background:var(--darkblue)}
+  .ppren-step{display:flex;gap:10px;padding:12px 18px;border-top:1px solid #f1f4f6}
+  .ppren-step .num{width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--darkblue);font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .ppren-step b{display:block;font-size:.9rem;color:var(--darkblue)}
+  .ppren-step span.sub{display:block;font-size:.8rem;color:var(--muted)}
+  .ppren-skills{margin-top:22px;background:var(--green-20);border-radius:16px;padding:20px 24px;text-align:center}
+  .ppren-skills .row{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-top:14px}
+  .ppren-skills .row div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:.82rem;color:var(--darkblue);font-weight:700;width:90px}
+  .ppren-skills .row span{font-size:24px}
+  .ppren-skills p.tag{margin:0;color:var(--green-dark,#5c7d10);font-weight:700;font-family:var(--font-heading)}
+  @media(max-width:1100px){.ppren-cols,.persp-grid{grid-template-columns:1fr}}
+
+  /* ===== ETCAS mini overview (homepage) ===== */
+  .etcas-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
+  .em-card{background:white;border-radius:18px;box-shadow:0 8px 20px rgba(18,54,97,.08);overflow:hidden}
+  .em-head{display:flex;align-items:center;gap:12px;padding:16px 18px;color:white;font-family:var(--font-heading)}
+  .em-card:nth-child(1) .em-head{background:var(--green)}
+  .em-card:nth-child(2) .em-head{background:var(--lightblue)}
+  .em-card:nth-child(3) .em-head{background:var(--orange)}
+  .em-head .em-num{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;font-weight:800}
+  .em-head span.hrs{margin-left:auto;font-size:.78rem;opacity:.9}
+  .em-body{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+  .em-body div{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--muted)}
+  .em-body div span.ic{font-size:18px}
+  .em-arrow{display:none}
+  @media(max-width:1100px){.etcas-mini{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="brand-zone">
+    <a href="https://www.ltett.lu" target="_blank" class="ltett-link" aria-label="LTEtt Website">
+      <img src="assets/LTEtt_Logo.png" class="logo logo-ltett" alt="LTEtt Logo">
+    </a>
+    <span class="divider"></span>
+    <a href="#top" class="brand">
+      <img src="assets/gse-logo.png" class="logo logo-gse" alt="GSE Logo">
+      <span>
+        <strong>GSE @ LTEtt</strong>
+        <small>Sciences Environnementales</small>
+      </span>
+    </a>
+  </div>
+
+  <nav class="main-nav">
+    <a href="#top">Home</a>
+    <a href="#themes">6 Themen</a>
+    <a href="#horaire">Grille</a>
+    <a href="#ppren">PPREN</a>
+    <a href='/pages/etcas'>ETCAS</a>
+    <a href="#projects">Projeten</a>
+    <a href="#perspectives">Perspektiven</a>
+    <a href="mailto:gse@ltett.lu">Kontakt</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<section id="gse" class="gse-hero">
+  <div class="hero-text">
+    <p class="kicker">GSE-Sektioun</p>
+    <h1>D’GSE-Sektioun</h1>
+    <p>
+      D’GSE-Sektioun vermëttelt Wëssen, Kompetenzen a Wäerter,
+      fir eng nohalteg Zukunft aktiv matzegestalten.
+      Mir verbannen Natur, Technik, Wirtschaft a Gesellschaft,
+      fir verantwortungsvoll Léisunge fir eis Ëmwelt ze entwéckelen.
+    </p>
+  </div>
+
+  <div class="hero-card">
+    <img class="corner-logo eco" src="assets/element-ekologie.png" alt="">
+    <img class="corner-logo soz" src="assets/element-sozial.png" alt="">
+    <img class="corner-logo eko" src="assets/element-ekonomie.png" alt="">
+    <img class="hero-icon" src="assets/gse-logo.png" alt="GSE Logo">
+  </div>
+</section>
+
+<section class="section mission-section">
+  <div class="mission-text">
+    <p class="kicker">Eis Missioun</p>
+    <h2>Léieren, verstoen, handelen.</h2>
+    <p>
+      Mir bilden engagéiert Jonker aus, déi d’Herausfuerderunge vun eiser Zäit
+      verstoen a Léisunge fir eng nohalteg Entwécklung entwéckelen.
+      Eis Ausbildung kombinéiert wëssenschaftlech Grondlagen, praktesch Erfarung
+      an interdisziplinär Zesummenaarbecht.
+    </p>
+  </div>
+
+  <div class="mission-items">
+    <article><span>🌿</span><h3>Nohaltegkeet</h3><p>Responsabel mat natierleche Ressourcen ëmgoen.</p></article>
+    <article><span>💡</span><h3>Wëssen & Kompetenzen</h3><p>Fachwëssen a praktescht Know-how verbannen.</p></article>
+    <article><span>🤝</span><h3>Zesummenaarbecht</h3><p>Am Team Léisunge fir Ëmwelt a Gesellschaft schaffen.</p></article>
+    <article><span>🌍</span><h3>Zukunft gestalten</h3><p>Schülerinnen a Schüler fir Beruffer vu muer preparéieren.</p></article>
+  </div>
+</section>
+
+<section id="themes" class="section muted">
+  <div class="section-title">
+    <p class="kicker">Eis Ausbildungsberäicher</p>
+    <h2>Déi 6 GSE-Themen</h2>
+    <p class="section-text">Dës sechs Themen bilden de Kär vun der GSE-Ausbildung a verbannen Theorie, Praxis a Projetaarbecht.</p>
+  </div>
+
+  
+
+<div class="theme-grid">
+
+<a class='theme-card' href='/pages/buedem'>
+<span>🌱</span>
+<h3>Buedem</h3>
+<p>Natur, Landwirtschaft, Ernärung a Biodiversitéit.</p>
+<span class="see-more">Méi gesinn →</span>
+</a>
+
+<a class='theme-card' href='/pages/loft'>
+<span>💨</span>
+<h3>Loft</h3>
+<p>Klima, Atmosphär, Wand an Ëmwelt.</p>
+<span class="see-more">Méi gesinn →</span>
+</a>
+
+<a class='theme-card' href='/pages/waasser'>
+<span>💧</span>
+<h3>Waasser</h3>
+<p>Waasser, Kreesleef, Notzung a Schutz.</p>
+<span class="see-more">Méi gesinn →</span>
+</a>
+
+<a class='theme-card' href='/pages/offall'>
+<span>♻️</span>
+<h3>Offall</h3>
+<p>Recycling, Kreeslafwirtschaft a Konsum.</p>
+<span class="see-more">Méi gesinn →</span>
+</a>
+
+<a class='theme-card' href='/pages/mobiliteit'>
+<span>🚲</span>
+<h3>Mobilitéit</h3>
+<p>Vëlo, Transport a nohaltegt Reesen.</p>
+<span class="see-more">Méi gesinn →</span>
+</a>
+
+<a class='theme-card' href='/pages/energie'>
+<span>⚡</span>
+<h3>Energie</h3>
+<p>Solar, Wand an nohalteg Technik.</p>
+<span class="see-more">Méi gesinn →</span>
+</a>
+
+</div>
+
+</section>
+
+<section id="horaire" class="section horaire-section">
+  <div class="section-title">
+    <p class="kicker">Stonneplang</p>
+    <h2>La grille horaire</h2>
+    <p class="section-text">
+      Hei fannt Dir d’Stonneverdeelung vun der GSE-Sektioun.
+      De Programm besteet aus spezialiséierten, allgemengen,
+      sproochlechen a mathematesche Fächer.
+    </p>
+  </div>
+
+  <div class="horaire-layout">
+    <div class="horaire-table horaire-card">
+      <div class="ht-block a">
+        <div class="ht-head"><span class="ht-badge">A</span> Spezialisatioun <span class="ht-hcol">Stonnen</span></div>
+        <div class="ht-row"><span>🌿</span>Ecologie<span class="hrs">4</span></div>
+        <div class="ht-row"><span>⚖️</span>Aspects économiques et juridiques du dév. durable<span class="hrs">2</span></div>
+        <div class="ht-row"><span>💡</span>Environnement et technologies<span class="hrs">4</span></div>
+        <div class="ht-row"><span>⚛️</span>Physique<span class="hrs">2</span></div>
+        <div class="ht-row"><span>🔎</span>Études de cas<span class="hrs">1</span></div>
+        <div class="ht-row"><span>👤</span>Projet personnel encadré<span class="hrs">4</span></div>
+        <div class="ht-row"><span>💼</span>Stage (3 Wochen)<span class="hrs">–</span></div>
+      </div>
+      <div class="ht-block b">
+        <div class="ht-head"><span class="ht-badge">B</span> Allgemeng Formatioun</div>
+        <div class="ht-row"><span>🌐</span>Connaissance du monde contemporain<span class="hrs">2</span></div>
+        <div class="ht-row"><span>🏃</span>Éducation physique et sportive<span class="hrs">2</span></div>
+      </div>
+      <div class="ht-block c">
+        <div class="ht-head"><span class="ht-badge">C</span> Sproochen a Mathematik</div>
+        <div class="ht-row"><span>🗣️</span>Allemand oder Franséisch<span class="hrs">3</span></div>
+        <div class="ht-row"><span>💬</span>Englesch<span class="hrs">3</span></div>
+        <div class="ht-row"><span>🧮</span>Mathematik<span class="hrs">5</span></div>
+      </div>
+      <div class="ht-total"><span>TOTAL</span><span>32</span></div>
+    </div>
+
+    <aside class="info-stack">
+      <div class="info-card soft">
+        <h3>ℹ️ Iwwert d’GSE-Sektioun</h3>
+        <p>
+          D’GSE-Formatioun vermëttelt Wëssen, Kompetenzen a Wäerter,
+          fir eng nohalteg Zukunft aktiv matzegestalten.
+        </p>
+        <p>
+          Mir verbannen Natur, Technik, Wirtschaft a Gesellschaft,
+          fir verantwortungsvoll Léisunge fir eis Ëmwelt ze entwéckelen.
+        </p>
+        <ul>
+          <li><strong>Praxisno:</strong> vill Projeten, Étuden de cas a Feldaarbechten.</li>
+          <li><strong>Interdisziplinär:</strong> Verbindung vu wëssenschaftlechen, techneschen a soziale Froen.</li>
+          <li><strong>Zukunftsorientéiert:</strong> Virbereedung op Beruffer am Ëmwelt- a Ressourcenschutz.</li>
+        </ul>
+      </div>
+
+      
+
+      
+    
+    
+    </aside>
+  </div>
+</section>
+
+<section id="ppren" class="section muted">
+  <div class="section-title">
+    <p class="kicker">PPREN</p>
+    <h2>Organisatioun vum Projet</h2>
+    <p class="section-text">Am PPREN léieren d’Schüler Projeten ze plangen, ëmzesetzen, ze dokumentéieren, ze presentéieren an ze reflektéieren.</p>
+  </div>
+  <div class="ppren-cols">
+    <div class="ppren-col">
+      <h4>📋 PPREN Ablauf (Iwwerbléck)</h4>
+      <div class="ppren-step"><div class="num">1</div><div><b>Planung</b><span class="sub">🎯 Ziler · 🚩 Meilesteng</span></div></div>
+      <div class="ppren-step"><div class="num">2</div><div><b>Ëmsetzung vum Projet</b><span class="sub">🛠️ Praktesch Ëmsetzung · 📖 Theoretesch Ëmsetzung</span></div></div>
+      <div class="ppren-step"><div class="num">3</div><div><b>Dokumentatioun</b><span class="sub">📅 Wochenberichter · 📝 Schrëftleche Bericht</span></div></div>
+      <div class="ppren-step"><div class="num">4</div><div><b>Bewertung / Reflexioun</b><span class="sub">✒️ Schrëftlech Preiwung</span></div></div>
+    </div>
+
+    <div class="ppren-col">
+      <h4>🧰 PPREN Praktesches</h4>
+      <div class="ppren-step"><div class="num">⏱️</div><div><b>Stonneplang</b><span class="sub">4 Wochestonnen</span></div></div>
+      <div class="ppren-step"><div class="num">👥</div><div><b>Betreiung</b><span class="sub">Ënnerschiddlech Fachrichtungen · 2 Betreier/Projet</span></div></div>
+      <div class="ppren-step"><div class="num">💰</div><div><b>Budget</b><span class="sub">500 €</span></div></div>
+      <div class="ppren-step"><div class="num">🤝</div><div><b>Partner</b><span class="sub">Extern Experten · Betriber · aner Klassen</span></div></div>
+    </div>
+
+    <div class="ppren-col">
+      <h4>✅ Bewertung PPREN</h4>
+      <div class="ppren-step"><div class="num">1</div><div><b>Planung</b><span class="sub">Ziler · Meilesteng</span></div></div>
+      <div class="ppren-step"><div class="num">2</div><div><b>Ëmsetzung vum Projet</b><span class="sub">Theoretesch a praktesch Ëmsetzung</span></div></div>
+      <div class="ppren-step"><div class="num">3</div><div><b>Schrëftlech Preiwung</b><span class="sub">Reflexioun iwwer Nohaltegkeet & Ëmsetzung</span></div></div>
+      <div class="ppren-step"><div class="num">4</div><div><b>Presentatioun</b><span class="sub">Sproochlech Kompetenz · Reflexioun</span></div></div>
+      <div class="ppren-step"><div class="num">5</div><div><b>Fachgespréicher</b><span class="sub">Sproochlech Kompetenz · Projetbezunn Froen</span></div></div>
+    </div>
+  </div>
+
+  <div class="ppren-skills">
+    <h3 style="margin:0;color:var(--darkblue);font-family:var(--font-heading)">PPREN – Kompetenzen fërderen</h3>
+    <div class="row">
+      <div><span>🌱</span>Nohaltegt Denken</div>
+      <div><span>🤝</span>Teamaarbecht</div>
+      <div><span>🔍</span>Problemléisung</div>
+      <div><span>💬</span>Kommunikatioun</div>
+      <div><span>📈</span>Selbststänegkeet</div>
+      <div><span>🎯</span>Verantwortung</div>
+      <div><span>🌍</span>Zukunft gestalten</div>
+    </div>
+    <p class="tag" style="margin-top:14px">Nohalteg denken. Verantwortung iwwerhuelen. Zukunft gestalten.</p>
+  </div>
+</section>
+
+
+
+
+<section id="projects" class="section">
+  <div class="section-title">
+    <p class="kicker">Bisher realiséiert Projeten</p>
+    <h2>Projeten no de 6 Themen agedeelt</h2>
+    <p class="section-text">D’Projeten aus de leschte Jore weisen, wéi breet a praktesch d’GSE-Ausbildung opgebaut ass.</p>
+  </div>
+
+  <div class="projects-compact">
+    <div class="pc-card">
+      <span class="pc-icon">🌱</span>
+      <h4>Buedem</h4>
+      <ul>
+        <li>Indoorfarming</li>
+        <li>Smart Garden</li>
+        <li>Aquaponik-Anlag</li>
+        <li>Ekologesch Beienhaltung</li>
+      </ul>
+      <a href='/pages/buedem'>Weider Projeten →</a>
+    </div>
+
+    <div class="pc-card">
+      <span class="pc-icon">💨</span>
+      <h4>Loft</h4>
+      <ul>
+        <li>Wiederstatioun</li>
+        <li>Liicht aus Wand</li>
+        <li>Biodiesel vs Diesel</li>
+        <li>Solarthermesch Kollektoren</li>
+      </ul>
+      <a href='/pages/loft'>Weider Projeten →</a>
+    </div>
+
+    <div class="pc-card">
+      <span class="pc-icon">💧</span>
+      <h4>Waasser</h4>
+      <ul>
+        <li>Vollautomatiséiert Aquarium</li>
+        <li>Waasserfilter</li>
+        <li>Aquaponik-Anlag</li>
+        <li>Solarkillschaf</li>
+      </ul>
+      <a href='/pages/waasser'>Weider Projeten →</a>
+    </div>
+
+    <div class="pc-card">
+      <span class="pc-icon">♻️</span>
+      <h4>Offall</h4>
+      <ul>
+        <li>Béierdeckelpress</li>
+        <li>Give Box</li>
+        <li>Fashion Upcycling</li>
+        <li>Fair Clothes</li>
+      </ul>
+      <a href='/pages/offall'>Weider Projeten →</a>
+    </div>
+
+    <div class="pc-card">
+      <span class="pc-icon">🚲</span>
+      <h4>Mobilitéit</h4>
+      <ul>
+        <li>ReVELOtioun</li>
+        <li>CycleSmart</li>
+        <li>Vëlosgenerator</li>
+        <li>Velo Camper</li>
+      </ul>
+      <a href='/pages/mobiliteit'>Weider Projeten →</a>
+    </div>
+
+    <div class="pc-card">
+      <span class="pc-icon">⚡</span>
+      <h4>Energie</h4>
+      <ul>
+        <li>Solarkillschaf</li>
+        <li>Solarmuseksbox</li>
+        <li>Vëlosgenerator</li>
+        <li>Léierstatioun Photovoltaik</li>
+      </ul>
+      <a href='/pages/energie'>Weider Projeten →</a>
+    </div>
+  </div>
+
+  
+
+<div class="project-note">
+<h3>Eenzele Projeten dono ergänzen</h3>
+
+<p>Wielt een Thema aus. Op der jeeweileger Säit steet déi komplett Lëscht vun de Projeten, déi spéider nach mat Fotoen, Videoen an Dokumentatioun ergänzt ka ginn.</p>
+
+<div class="theme-buttons">
+<a href='/pages/buedem'>🌱 Buedem</a>
+<a href='/pages/loft'>💨 Loft</a>
+<a href='/pages/waasser'>💧 Waasser</a>
+<a href='/pages/offall'>♻️ Offall</a>
+<a href='/pages/mobiliteit'>🚲 Mobilitéit</a>
+<a href='/pages/energie'>⚡ Energie</a>
+</div>
+</div>
+
+</section>
+
+
+<section id="perspectives" class="section muted">
+  <div class="section-title">
+    <p class="kicker">Perspektiven</p>
+    <h2>Perspektiven fir d’Zukunft</h2>
+    <p class="section-text">
+      D’GSE-Sektioun bereet op d’Beruffsliewen an op héichschoulesch oder universitär Studie vir.
+      Dobäi ginn och wichteg Kompetenze wéi wëssenschaftlecht Analyséieren,
+      Problemléisung, Teamaarbecht, Kreativitéit, Kommunikatioun a kritescht Denken entwéckelt.
+    </p>
+  </div>
+
+  <div class="persp-wrap">
+    <div class="persp-grid">
+      <div>
+        <h4>🎓 Beräicher fir d'Zukunft</h4>
+        <ul class="persp-list">
+          <li><span class="ic">🌿</span>Ëmwelt &amp; Ökologie</li>
+          <li><span class="ic">☀️</span>Ernéierbar Energien</li>
+          <li><span class="ic">💡</span>Ökotechnologien</li>
+          <li><span class="ic">🚲</span>Nohalteg Mobilitéit</li>
+          <li><span class="ic">♻️</span>Kreeslafwirtschaft</li>
+          <li><span class="ic">🤝</span>Management / Gestion</li>
+        </ul>
+      </div>
+      <div>
+        <h4>🧠 Entwéckelt Kompetenzen</h4>
+        <ul class="persp-list">
+          <li><span class="ic">🔬</span>Wëssenschaftlech analyséieren</li>
+          <li><span class="ic">🧩</span>Problemer léisen</li>
+          <li><span class="ic">👥</span>An engem Team schaffen</li>
+          <li><span class="ic">💡</span>Kreativitéit &amp; Innovatioun</li>
+          <li><span class="ic">💬</span>Kommunikatioun</li>
+          <li><span class="ic">🧭</span>Kritesch denken</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="persp-callouts">
+      <div>
+        <b>🎯 Eis Zil</b>
+        <p>Iech d'Wëssen, d'Kompetenzen an d'Haltung mat op de Wee ze ginn, fir d'Herausfuerderunge vun haut a vu muer ze meeschteren.</p>
+      </div>
+      <div>
+        <b>🚀 Är Zukunft</b>
+        <p>Eng solid Basis fir ären Wee an d'Beruffswelt oder an héichschoulesch Studien.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="etcas" class="section muted">
+  <div class="section-title">
+    <p class="kicker">ETCAS</p>
+    <h2>Étude de cas – ETCAS</h2>
+    <p class="section-text">
+      Am ETCAS analyséieren d'Schüler konkret Ëmweltproblemer,
+      verbannen Theorie a Praxis a schaffen un nohaltege Léisungen.
+      D'ETCAS-Aarbecht besteet aus Virbereedung, Expert/Visite
+      an Analyse & Reflexioun.
+    </p>
+  </div>
+
+  <div class="etcas-mini">
+    <div class="em-card">
+      <div class="em-head"><span class="em-num">1</span>Virbereedung<span class="hrs">3 Stonnen</span></div>
+      <div class="em-body">
+        <div><span class="ic">🔍</span>Kontext a Problemstellung verstoen</div>
+        <div><span class="ic">❓</span>Froen ausschaffen</div>
+        <div><span class="ic">📖</span>Fachwëssen erschaffen</div>
+      </div>
+    </div>
+    <div class="em-card">
+      <div class="em-head"><span class="em-num">2</span>Expert / Visite<span class="hrs">3 Stonnen</span></div>
+      <div class="em-body">
+        <div><span class="ic">🏭</span>Betribsbesuch oder externen Expert</div>
+        <div><span class="ic">👥</span>Prakteschen Abléck</div>
+        <div><span class="ic">🧪</span>Feldanalysen / Demonstratiounen</div>
+      </div>
+    </div>
+    <div class="em-card">
+      <div class="em-head"><span class="em-num">3</span>Analys &amp; Reflexioun<span class="hrs">3 Stonnen</span></div>
+      <div class="em-body">
+        <div><span class="ic">📊</span>Erkenntnisser analyséieren</div>
+        <div><span class="ic">📄</span>Dokumentatioun</div>
+        <div><span class="ic">🌱</span>Nohaltegkeetsanalyse</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:20px;">
+    <a class='button primary' href='/pages/etcas'>Méi Detailer zum ETCAS →</a>
+  </p>
+
+  <div class="project-note">
+    <h3>Wat léieren d'Schüler am ETCAS?</h3>
+
+    <div class="theme-grid">
+      <article>
+        <span>🔎</span>
+        <h3>Analyséieren</h3>
+        <p>Problemer erkennen, Zesummenhäng verstoen an Donnéeën interpretéieren.</p>
+      </article>
+
+      <article>
+        <span>🏭</span>
+        <h3>Praxis erliewen</h3>
+        <p>Betribsvisitten, Experten an Feldanalysen direkt an der Realitéit.</p>
+      </article>
+
+      <article>
+        <span>💡</span>
+        <h3>Léisungen entwéckelen</h3>
+        <p>Nohalteg Iddien entwéckelen an dokumentéieren.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact-bar">
+  <div>📍 Lycée Technique d’Ettelbruck</div>
+  <div>📧 <a href="mailto:gse@ltett.lu">gse@ltett.lu</a></div>
+  <div>📸 <a href="https://instagram.com/gse.ltett" target="_blank">@gse.ltett</a></div>
+  <div class="slogan">op d'Zukunft spezialiséiert · <a href="https://www.ltett.lu" target="_blank">www.ltett.lu</a><br><small style="font-weight:400;opacity:.8">© 2025 LTEtt – GSE</small></div>
+</section>
+
+</main>
+
+</body>
+</html>

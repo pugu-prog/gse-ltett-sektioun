@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="lb">
+<head>
+<meta charset="UTF-8">
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=ai-legible&utm_source=comment&utm_medium=referral&utm_id=c885bac8-92c5-4bcd-991e-b0d4d171129b
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+<meta name="hosting-provider" content="Netlify">
+<meta name="netlify-deploy" content="https://netlify.new/?utm_campaign=ai-legible&amp;utm_source=meta&amp;utm_medium=referral&amp;utm_id=c885bac8-92c5-4bcd-991e-b0d4d171129b">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETCAS – Étude de Cas – GSE Sektioun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  /* ---- ETCAS page-specific styles, built on top of the site's CSS variables ---- */
+  .etcas-steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:30px;
+    position:relative;
+  }
+  .etcas-step{
+    background:white;
+    border-radius:20px;
+    border:2px solid var(--darkblue-20);
+    box-shadow:0 10px 24px rgba(18,54,97,.08);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .etcas-step .step-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:20px 22px;
+    border-bottom:2px solid var(--darkblue-20);
+  }
+  .etcas-step .step-num{
+    width:46px;height:46px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:white;font-weight:800;font-size:22px;flex-shrink:0;
+    font-family:var(--font-heading);
+  }
+  .etcas-step .step-head h3{
+    margin:0;font-size:1.15rem;color:var(--darkblue);
+  }
+  .etcas-step .step-hours{
+    display:block;font-size:.8rem;font-weight:700;color:var(--muted);margin-top:2px;
+  }
+  .etcas-step .step-body{
+    padding:18px 22px 8px;
+    flex:1;
+  }
+  .etcas-substep{
+    display:flex;gap:12px;margin-bottom:16px;
+  }
+  .etcas-substep .icon-wrap{
+    width:44px;height:44px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .etcas-substep .icon-wrap svg{width:22px;height:22px;}
+  .etcas-substep h4{margin:0 0 4px;font-size:.95rem;color:var(--darkblue)}
+  .etcas-substep ul{margin:0;padding-left:16px;font-size:.85rem;color:var(--muted);line-height:1.4}
+  .etcas-substep ul li{margin-bottom:2px}
+
+  .etcas-zil{
+    margin:6px 20px 20px;border-radius:14px;padding:14px 16px;
+    display:flex;gap:10px;align-items:flex-start;
+  }
+  .etcas-zil b{display:block;font-size:.78rem;letter-spacing:.06em;margin-bottom:2px}
+  .etcas-zil p{margin:0;font-size:.85rem;color:var(--muted);line-height:1.4}
+
+  .etcas-step.green .step-num{background:var(--green)}
+  .etcas-step.green .step-head{background:var(--green-20)}
+  .etcas-step.green .icon-wrap{background:var(--green-20)}
+  .etcas-step.green .etcas-zil{background:var(--green-20);border:1.5px solid var(--green-40)}
+  .etcas-step.green .etcas-zil b{color:var(--green-dark,#5c7d10)}
+
+  .etcas-step.blue .step-num{background:var(--lightblue)}
+  .etcas-step.blue .step-head{background:var(--lightblue-20)}
+  .etcas-step.blue .icon-wrap{background:var(--lightblue-20)}
+  .etcas-step.blue .etcas-zil{background:var(--lightblue-20);border:1.5px solid var(--lightblue-40)}
+  .etcas-step.blue .etcas-zil b{color:var(--darkblue)}
+
+  .etcas-step.orange .step-num{background:var(--orange)}
+  .etcas-step.orange .step-head{background:var(--orange-20)}
+  .etcas-step.orange .icon-wrap{background:var(--orange-20)}
+  .etcas-step.orange .etcas-zil{background:var(--orange-20);border:1.5px solid var(--orange-40)}
+  .etcas-step.orange .etcas-zil b{color:#b5680a}
+
+  .etcas-arrow{
+    position:absolute;top:74px;
+    width:30px;height:30px;color:var(--darkblue-40);
+  }
+  .etcas-arrow.a1{left:calc(33.333% - 15px)}
+  .etcas-arrow.a2{left:calc(66.666% - 15px)}
+
+  .etcas-bottom{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:22px;margin-top:32px;
+  }
+  .etcas-bottom-box{
+    border:2px dashed var(--darkblue-40);border-radius:20px;padding:20px 22px;background:white;
+  }
+  .etcas-bottom-box h4{
+    text-align:center;font-family:var(--font-heading);color:var(--darkblue);
+    margin:0 0 16px;font-size:1rem;letter-spacing:.04em;
+  }
+  .etcas-pillrow{display:flex;justify-content:space-around;gap:10px;flex-wrap:wrap}
+  .etcas-pill{display:flex;flex-direction:column;align-items:center;text-align:center;width:100px;gap:8px}
+  .etcas-pill .circ{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .etcas-pill .circ svg{width:24px;height:24px}
+  .etcas-pill span{font-size:.75rem;font-weight:700;color:var(--muted);line-height:1.25}
+  .etcas-pill.solid .circ{background:var(--green)}
+  .etcas-pill.solid .circ svg{stroke:white}
+  .etcas-pill.outline .circ{background:var(--soft)}
+
+  @media(max-width:1100px){
+    .etcas-steps{grid-template-columns:1fr}
+    .etcas-arrow{position:static;transform:rotate(90deg);margin:-2px auto 4px;display:block}
+    .etcas-bottom{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand-zone">
+    <a href="https://www.ltett.lu" target="_blank" class="ltett-link">
+      <img src="../assets/LTEtt_Logo.png" class="logo logo-ltett" alt="LTEtt Logo">
+    </a>
+    <span class="divider"></span>
+    <a class='brand' href='/'>
+      <img src="../assets/gse-logo.png" class="logo logo-gse" alt="GSE Logo">
+      <span>
+        <strong>GSE @ LTEtt</strong>
+        <small>ETCAS</small>
+      </span>
+    </a>
+  </div>
+</header>
+
+<main class="section">
+  <p class="kicker">ETCAS</p>
+  <h1>Étude de Cas</h1>
+  <p class="section-text">
+    Verstoen – Analyséieren – Léisungen entwéckelen – Nohalteg handelen.
+    D'ETCAS-Aarbecht besteet aus dräi Schrëtt: Virbereedung, Expert/Visite an Analyse &amp; Reflexioun.
+  </p>
+
+  <div class="etcas-steps">
+
+    <!-- STEP 1 -->
+    <div class="etcas-step green">
+      <div class="step-head">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Virbereedung</h3>
+          <span class="step-hours">3 Stonnen</span>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#94c11a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/>
+            </svg>
+          </div>
+          <div>
+            <h4>1. Kontext a Problemstellung verstoën</h4>
+            <ul>
+              <li>Thema a Situatioun verstoen</li>
+              <li>Ursaachen, Zesummenhang a Auswierkungen identifizéieren</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#94c11a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 9a3 3 0 1 1 4 2.8c-.9.4-1.4 1-1.4 2.2"/><line x1="12" y1="17.5" x2="12" y2="17.6"/><circle cx="12" cy="12" r="9"/>
+            </svg>
+          </div>
+          <div>
+            <h4>2. Froëstellungen</h4>
+            <ul><li>Relevante Froë stellen, déi mir am Kader vum ETCAS beäntwerte wëllen</li></ul>
+          </div>
+        </div>
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#94c11a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5c2-1 5-1 8 0c3-1 6-1 8 0v13c-2-1-5-1-8 0c-3-1-6-1-8 0Z"/><line x1="12" y1="5" x2="12" y2="18"/>
+            </svg>
+          </div>
+          <div>
+            <h4>3. Fachwëssen erschaffen</h4>
+            <ul>
+              <li>Informatiounen aus verschiddene Quellen sichen a vergläichen</li>
+              <li>Technesch an ekologesch Grundlagen verstoen</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#94c11a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="#94c11a"/>
+            </svg>
+          </div>
+          <div>
+            <h4>4. Fir d'Thema ze verstoën an déi richteg Froën ze stellen</h4>
+            <ul><li>Wëssen ausbauen, Hypothesen opstellen, Fokus setzen</li></ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="etcas-zil">
+        <div class="icon-wrap" style="background:transparent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#94c11a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6" fill="#94c11a"/>
+          </svg>
+        </div>
+        <div>
+          <b>ZIL</b>
+          <p>Gutt virbereet sinn, fir den Thema ze verstoen an déi richteg Froën ze stellen.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="etcas-step blue">
+      <div class="step-head">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Expert / Visite</h3>
+          <span class="step-hours">3 Stonnen</span>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#009ee3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="10" width="6" height="10"/><rect x="14" y="4" width="6" height="16"/><line x1="16.5" y1="8" x2="16.5" y2="8"/><line x1="16.5" y1="11" x2="16.5" y2="11"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Betribsbesuch oder externen Expert</h4>
+            <ul><li>Realwelt erliewen</li></ul>
+          </div>
+        </div>
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#009ee3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M21 20c0-2.6-1.8-4.7-4-5.4"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Prakteschen Abléck</h4>
+            <ul><li>Prozesser, Technologien a Moossnamen entdecken</li></ul>
+          </div>
+        </div>
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#009ee3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 3h6"/><path d="M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><line x1="8" y1="16" x2="16" y2="16"/>
+            </svg>
+          </div>
+          <div>
+            <h4>Feldanalysen / Demonstratiounen</h4>
+            <ul><li>Observéieren, moossen, verstoen</li></ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="etcas-zil">
+        <div class="icon-wrap" style="background:transparent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#009ee3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <b>ZIL</b>
+          <p>Direkt Abléck gewannen an Realitéit mat Theorie verknëppen.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="etcas-step orange">
+      <div class="step-head">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Analys &amp; Reflexioun</h3>
+          <span class="step-hours">3 Stonnen</span>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f39100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="20" x2="5" y2="12"/><line x1="12" y1="20" x2="12" y2="7"/><line x1="19" y1="20" x2="19" y2="15"/><line x1="3" y1="20" x2="21" y2="20"/>
+            </svg>
+          </div>
+          <div>
+            <h4>1. Erkenntnisser</h4>
+            <ul>
+              <li>Donnéeën a Beobachtungen analyséieren</li>
+              <li>Schlëssfolgerungen zéien</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f39100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 3h7l4 4v14H7Z"/><path d="M14 3v4h4"/><line x1="9.5" y1="12" x2="15" y2="12"/><line x1="9.5" y1="15.5" x2="15" y2="15.5"/>
+            </svg>
+          </div>
+          <div>
+            <h4>2. Dokumentatioun</h4>
+            <ul><li>Resultater struktuéieren an dokumentéieren</li></ul>
+          </div>
+        </div>
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f39100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="12" rx="1.5"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/>
+            </svg>
+          </div>
+          <div>
+            <h4>3. Presentatioun</h4>
+            <ul><li>Erkenntnisser präsentéieren an diskutéieren</li></ul>
+          </div>
+        </div>
+
+        <div class="etcas-substep">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f39100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.5.4.6.9.6 1.5v.2h6v-.2c0-.6.1-1.1.6-1.5A6 6 0 0 0 12 3Z"/>
+            </svg>
+          </div>
+          <div>
+            <h4>4. Nohaltegkeetsanalyse</h4>
+            <ul><li>Ëmwelt, Wirtschaft, Gesellschaft a Léisungsvirschléi bewäerten</li></ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="etcas-zil">
+        <div class="icon-wrap" style="background:transparent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f39100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.5.4.6.9.6 1.5v.2h6v-.2c0-.6.1-1.1.6-1.5A6 6 0 0 0 12 3Z"/>
+          </svg>
+        </div>
+        <div>
+          <b>ZIL</b>
+          <p>Erkenntnisser gewannen, verständlech presentéieren an nohalteg Léisungen virschloen.</p>
+        </div>
+      </div>
+    </div>
+
+    <svg class="etcas-arrow a1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+    <svg class="etcas-arrow a2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+  </div>
+
+  <div class="etcas-bottom">
+    <div class="etcas-bottom-box">
+      <h4>Méi wéi nur wëssen</h4>
+      <div class="etcas-pillrow">
+        <div class="etcas-pill solid">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M6 8c-3 3-3 8 0 11c3-1 4-3 6-3s3 2 6 3c3-3 3-8 0-11c-3 3-4 3-6 3s-3 0-6-3Z"/></svg></div>
+          <span>Ëmwelt bewosst analyséieren</span>
+        </div>
+        <div class="etcas-pill solid">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.5" cy="9" r="2.4"/><path d="M21 20c0-2.6-1.8-4.7-4-5.4"/></svg></div>
+          <span>Zesummenarbecht stäerken</span>
+        </div>
+        <div class="etcas-pill solid">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 19c-2.5-1-4-3-4-5.5A6 6 0 0 1 15 9.4C16.7 10 18 11.6 18 13.5c0 2.5-1.5 4.5-4 5.5"/><path d="M9.5 22h5"/><path d="M12 2v2"/><path d="M12 9v10"/></svg></div>
+          <span>Kritesch denken fërderen</span>
+        </div>
+        <div class="etcas-pill solid">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.5 4 6 4 9s-1.5 6.5-4 9c-2.5-2.5-4-6-4-9s1.5-6.5 4-9Z"/></svg></div>
+          <span>Nohalteg handelen</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="etcas-bottom-box">
+      <h4>Themebeiller</h4>
+      <div class="etcas-pillrow">
+        <div class="etcas-pill outline">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#94c11a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-1-7-5-7-9a7 7 0 0 1 14 0c0 4-3 8-7 9Z"/><path d="M12 21v-6"/><path d="M9 12c1 1 2 1 3 0s2-1 3 0"/></svg></div>
+          <span>Buedem</span>
+        </div>
+        <div class="etcas-pill outline">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#009ee3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c3 4 7 9 7 13a7 7 0 0 1-14 0c0-4 4-9 7-13Z"/></svg></div>
+          <span>Waasser</span>
+        </div>
+        <div class="etcas-pill outline">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#f39100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 5 14 11 14 9 22 19 10 13 10 13 2"/></svg></div>
+          <span>Energie</span>
+        </div>
+        <div class="etcas-pill outline">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#94c11a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="3.4"/><circle cx="18" cy="17" r="3.4"/><path d="M6 17l4-9h4l-2 4h4l-2 5"/><path d="M10 8h2"/></svg></div>
+          <span>Mobilitéit</span>
+        </div>
+        <div class="etcas-pill outline">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#123661" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7l3-4l3 4"/><path d="M10 3v6l-4 7"/><path d="M17 17l-3 4l-3-4"/><path d="M14 21v-6l4-7"/><path d="M4 12l3-2l3 2"/><path d="M20 12l-3-2l-3 2"/></svg></div>
+          <span>Offall</span>
+        </div>
+        <div class="etcas-pill outline">
+          <div class="circ"><svg viewBox="0 0 24 24" fill="none" stroke="#7186a0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17a4 4 0 0 1 .3-8a5.5 5.5 0 0 1 10.6 1.2A3.8 3.8 0 0 1 17 17Z"/></svg></div>
+          <span>Loft</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:30px;">
+    <a class='button secondary' href='/#etcas'>← Zréck op d'Iwwersiicht</a>
+  </p>
+</main>
+
+<footer class="site-footer">
+  <p class="slogan">op d'Zukunft spezialiséiert · <a href="https://www.ltett.lu" target="_blank">www.ltett.lu</a></p>
+  <p>GSE – Sciences Environnementales @ LTEtt</p>
+</footer>
+
+</body>
+</html>
