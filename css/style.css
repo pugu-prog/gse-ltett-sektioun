@@ -271,3 +271,9 @@ footer.site-footer a{color:white;text-decoration:underline}
 @media(max-width:900px){
   .project-list-full{grid-template-columns:1fr;}
 }
+
+/* ===== Projeten mat Résumé: ganz Zeil, Titel a Résumé an onsiichtbare Kolonnen ===== */
+.project-list-full li:has(>span){grid-column:1/-1;list-style:none;display:grid;grid-template-columns:minmax(200px,1fr) 2.4fr;gap:6px 28px;margin:6px 0 0 -20px;padding:12px 4px 4px;border-top:1px solid var(--darkblue-20);align-items:start}
+.project-list-full li>strong{color:var(--darkblue)}
+.project-list-full li>span{margin:0!important;font-size:.92em!important}
+@media(max-width:700px){.project-list-full li:has(>span){grid-template-columns:1fr}}
