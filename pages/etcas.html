@@ -123,6 +123,41 @@
     .etcas-arrow{position:static;transform:rotate(90deg);margin:-2px auto 4px;display:block}
     .etcas-bottom{grid-template-columns:1fr}
   }
+
+  /* ---- ETCAS Zäitplang (timeline, no teacher names — colored by GSE-Thema) ---- */
+  .et-section{margin-top:48px;}
+  .et-section > h3{color:var(--darkblue);font-family:var(--font-heading);font-size:1.5rem;margin:0 0 8px;}
+  .et-section > p.et-lead{color:var(--muted);margin:0 0 18px;font-size:.98rem;max-width:760px;}
+  .et-legend{display:flex;flex-wrap:wrap;gap:14px 22px;margin-bottom:22px;}
+  .et-legend div{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:700;color:var(--darkblue);}
+  .et-legend .sw{width:13px;height:13px;border-radius:50%;background:var(--tc);flex-shrink:0;}
+  .et-tabs{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+  .et-tab{border:2px solid var(--darkblue-20);background:white;color:var(--darkblue);font-family:var(--font-heading);font-weight:700;font-size:.92rem;padding:10px 20px;border-radius:20px;cursor:pointer;}
+  .et-tab.active{background:var(--darkblue);border-color:var(--darkblue);color:white;}
+  .et-group{display:none;}
+  .et-group.active{display:block;}
+  .et-intro{background:var(--soft);border-radius:14px;padding:14px 18px;margin-bottom:20px;font-size:.9rem;color:var(--muted);}
+  .et-intro strong{color:var(--darkblue);}
+  .et-timeline{position:relative;margin-left:10px;padding-left:28px;border-left:3px solid var(--darkblue-20);}
+  .et-block{position:relative;margin-bottom:18px;--tc:var(--darkblue);--tc-20:var(--darkblue-20);}
+  .et-block:last-child{margin-bottom:0;}
+  .et-block[data-topic="waasser"]{--tc:var(--lightblue);--tc-20:var(--lightblue-20);}
+  .et-block[data-topic="energie"]{--tc:var(--orange);--tc-20:var(--orange-20);}
+  .et-block[data-topic="buedem"]{--tc:var(--green);--tc-20:var(--green-20);}
+  .et-block[data-topic="loft"]{--tc:var(--darkblue-60);--tc-20:var(--darkblue-20);}
+  .et-block[data-topic="social"]{--tc:var(--darkblue);--tc-20:var(--darkblue-20);}
+  .et-block::before{content:"";position:absolute;left:-36px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--tc);border:3px solid white;box-shadow:0 0 0 2px var(--tc);}
+  .et-card{background:white;border-radius:16px;padding:16px 20px;box-shadow:0 8px 20px rgba(18,54,97,.08);border-left:4px solid var(--tc);}
+  .et-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;margin-bottom:10px;}
+  .et-period{font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--tc);}
+  .et-topic{font-family:var(--font-heading);font-weight:700;font-size:1.05rem;color:var(--darkblue);display:flex;align-items:center;gap:7px;}
+  .et-dates{display:flex;flex-wrap:wrap;gap:8px;}
+  .et-chip{background:var(--tc-20);color:var(--darkblue);border-radius:999px;padding:6px 14px;font-size:.84rem;font-weight:700;white-space:nowrap;}
+  .et-footnote{margin-top:18px;font-size:.76rem;color:var(--darkblue-40);}
+  @media(max-width:760px){
+    .et-timeline{margin-left:4px;padding-left:22px;}
+    .et-block::before{left:-29px;}
+  }
 </style>
 </head>
 <body>
@@ -430,6 +465,66 @@
     </div>
   </div>
 
+  <section class="et-section" id="zaitplang" aria-labelledby="et-h">
+    <h3 id="et-h">📅 Zäitplang</h3>
+    <p class="et-lead">ETCAS-Sessioune fannen dëst Schouljoer 2026/27 ëmmer dënschdes statt. All Block ass engem GSE-Thema zougedeelt an no Thema agefierft.</p>
+
+    <div class="et-legend">
+      <div style="--tc:var(--lightblue)"><span class="sw"></span>💧 Waasser</div>
+      <div style="--tc:var(--orange)"><span class="sw"></span>⚡ Energie</div>
+      <div style="--tc:var(--green)"><span class="sw"></span>🌱 Buedem</div>
+      <div style="--tc:var(--darkblue-60)"><span class="sw"></span>💨 Loft</div>
+      <div style="--tc:var(--darkblue)"><span class="sw"></span>🤝 Social</div>
+    </div>
+
+    <div class="et-tabs" role="tablist" aria-label="ETCAS Grupp wielen">
+      <button class="et-tab active" id="et-btn-e1" data-g="e1" role="tab" aria-selected="true">ETCAS 1 GSE</button>
+      <button class="et-tab" id="et-btn-e2" data-g="e2" role="tab" aria-selected="false">ETCAS 2 GSE</button>
+    </div>
+
+    <div class="et-group active" data-g="e1">
+      <div class="et-intro"><strong>ETCAS 1 GSE</strong> — 3 Themeblécker. Semester 1 bis Mëtt Januar, ab dem 15.01.2027 leeft Semester 2.</div>
+      <div class="et-timeline">
+        <div class="et-block" data-topic="waasser"><div class="et-card">
+          <div class="et-head"><span class="et-period">Semester 1</span><span class="et-topic">💧 Waasser</span></div>
+          <div class="et-dates"><span class="et-chip">Di, 13.10.2026</span><span class="et-chip">Di, 20.10.2026</span><span class="et-chip">Di, 27.10.2026</span></div>
+        </div></div>
+        <div class="et-block" data-topic="energie"><div class="et-card">
+          <div class="et-head"><span class="et-period">Semester 2</span><span class="et-topic">⚡ Energie</span></div>
+          <div class="et-dates"><span class="et-chip">Di, 12.01.2027</span><span class="et-chip">Di, 19.01.2027</span><span class="et-chip">Di, 26.01.2027</span></div>
+        </div></div>
+        <div class="et-block" data-topic="buedem"><div class="et-card">
+          <div class="et-head"><span class="et-period">Semester 2</span><span class="et-topic">🌱 Buedem</span></div>
+          <div class="et-dates"><span class="et-chip">Di, 13.04.2027</span><span class="et-chip">Di, 20.04.2027</span><span class="et-chip">Di, 27.04.2027</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="et-group" data-g="e2" hidden>
+      <div class="et-intro"><strong>ETCAS 2 GSE</strong> — 4 Themeblécker, jeweils 3 openeen-folgend Dënschdeger.</div>
+      <div class="et-timeline">
+        <div class="et-block" data-topic="energie"><div class="et-card">
+          <div class="et-head"><span class="et-period">Trimestre I</span><span class="et-topic">⚡ Energie</span></div>
+          <div class="et-dates"><span class="et-chip">Di, 13.10.2026</span><span class="et-chip">Di, 20.10.2026</span><span class="et-chip">Di, 27.10.2026</span></div>
+        </div></div>
+        <div class="et-block" data-topic="loft"><div class="et-card">
+          <div class="et-head"><span class="et-period">Trimestre II</span><span class="et-topic">💨 Loft</span></div>
+          <div class="et-dates"><span class="et-chip">Di, 12.01.2027</span><span class="et-chip">Di, 19.01.2027</span><span class="et-chip">Di, 26.01.2027</span></div>
+        </div></div>
+        <div class="et-block" data-topic="social"><div class="et-card">
+          <div class="et-head"><span class="et-period">Trimestre III</span><span class="et-topic">🤝 Social</span></div>
+          <div class="et-dates"><span class="et-chip">Di, 13.04.2027</span><span class="et-chip">Di, 20.04.2027</span><span class="et-chip">Di, 27.04.2027</span></div>
+        </div></div>
+        <div class="et-block" data-topic="buedem"><div class="et-card">
+          <div class="et-head"><span class="et-period">Trimestre III</span><span class="et-topic">🌱 Buedem</span></div>
+          <div class="et-dates"><span class="et-chip">Di, 08.06.2027</span><span class="et-chip">Di, 15.06.2027</span><span class="et-chip">Di, 22.06.2027</span></div>
+        </div></div>
+      </div>
+    </div>
+
+    <p class="et-footnote">Quell: LTETT Calendrier scolaire 2026/27.</p>
+  </section>
+
   <p style="margin-top:30px;">
     <a class='button secondary' href='/#etcas'>← Zréck op d'Iwwersiicht</a>
   </p>
@@ -439,6 +534,23 @@
   <p class="slogan">op d'Zukunft spezialiséiert · <a href="https://www.ltett.lu" target="_blank">www.ltett.lu</a></p>
   <p>GSE – Sciences Environnementales @ LTEtt</p>
 </footer>
+
+<script>
+  document.querySelectorAll('.et-tab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var g = btn.getAttribute('data-g');
+      document.querySelectorAll('.et-tab').forEach(function(b){
+        b.classList.toggle('active', b === btn);
+        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+      });
+      document.querySelectorAll('.et-group').forEach(function(sec){
+        var match = sec.getAttribute('data-g') === g;
+        sec.classList.toggle('active', match);
+        sec.hidden = !match;
+      });
+    });
+  });
+</script>
 
 </body>
 </html>
