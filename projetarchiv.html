@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="lb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>PPREN Projetarchiv</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: one narrow working column — intro, filter bar, one collapsible entry per project, sticky send bar */
+:root{
+  --bg:#f3f5f2; --surface:#ffffff; --fg:#1d2a26; --muted:#5d6b66; --line:#d9e0db;
+  --accent:#2f6b58; --warn:#a2581b; --warn-soft:#fbeedd; --ok:#2f6b58; --ok-soft:#e3efe9; --focus:#3d8c73;
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#141a18; --surface:#1c2421; --fg:#e4ebe7; --muted:#9aa9a3; --line:#2f3b37;
+  --accent:#7cc3a8; --warn:#e7a467; --warn-soft:#3a2a1a; --ok:#7cc3a8; --ok-soft:#22352e; --focus:#7cc3a8;
+  color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:28px 120px;display:flex;flex-direction:column;gap:22px}
+h1,h2{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(1.7rem,4vw,2.3rem);line-height:1.15}
+h2{font-size:1.15rem}
+.eyebrow{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.intro p{margin:.5em 0 0;max-width:65ch;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chipbtn{font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:5px 12px;border-radius:99px;cursor:pointer}
+.chipbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.list{display:flex;flex-direction:column;gap:8px}
+details.item{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+details.item[open]{border-color:var(--accent)}
+summary{list-style:none;cursor:pointer;padding:12px 16px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary .t{font-weight:600;flex:1 1 260px;min-width:0}
+summary .t::before{content:"▸";display:inline-block;width:1.1em;color:var(--muted);transition:transform .15s}
+details[open] summary .t::before{transform:rotate(90deg)}
+.themes,.pills{display:flex;gap:6px;flex-wrap:wrap}
+.theme{font-size:.75rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 6px}
+.pill{font-size:.78rem;font-weight:600;border-radius:99px;padding:2px 9px;white-space:nowrap}
+.pill.miss{background:var(--warn-soft);color:var(--warn)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.body{padding:12px 16px 18px;display:grid;gap:14px;border-top:1px solid var(--line)}
+.field{display:grid;gap:4px;min-width:0}
+.field label,.lbl{font-size:.85rem;font-weight:600;color:var(--muted)}
+.hint{font-size:.85rem;color:var(--muted)}
+select,textarea,input[type=text]{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%}
+select{max-width:240px}
+textarea{min-height:110px;resize:vertical}
+input[type=file]{font:inherit;font-size:.9rem;color:var(--muted);max-width:100%}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{font:inherit;font-weight:600;border-radius:6px;padding:10px 20px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--bg)}
+.btn:disabled{opacity:.5;cursor:default}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:12px}
+.box.dashed{border-style:dashed}
+.sendbar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.sendbar .in{max-width:860px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.sendbar .count{font-weight:600;font-variant-numeric:tabular-nums}
+.status{font-size:.92rem;color:var(--muted)}
+.done{background:var(--ok-soft);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;gap:8px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="intro">
+    <div class="eyebrow">GSE @ LTEtt · PPREN</div>
+    <h1>Hëllef fir d'Projetarchiv</h1>
+    <p>Op der GSE-Websäit feelen nach fir verschidde Projeten d'Schouljoer oder e Resumé. Wann Dir e Projet betreit hutt, maacht en op, wielt d'Schouljoer a schreift e puer Sätz, wann Dir wëllt. Hutt Dir d'Dokumentatioun nach, da luet se einfach als PDF erop.</p>
+    <p>Fëllt just aus, wat Dir wësst, an dréckt um Enn eng Kéier op <strong>Ofschécken</strong>.</p>
+  </header>
+
+  <div class="box">
+    <div class="field"><label for="name">Ären Numm (fir datt ech wees, wien ech froe kann)</label><input type="text" id="name" autocomplete="name"></div>
+  </div>
+
+  <nav class="filters" aria-label="Thema">
+    <button class="chipbtn" type="button" data-f="" aria-pressed="true">All</button>
+    <button class="chipbtn" type="button" data-f="buedem" aria-pressed="false">Buedem</button>
+    <button class="chipbtn" type="button" data-f="loft" aria-pressed="false">Loft</button>
+    <button class="chipbtn" type="button" data-f="waasser" aria-pressed="false">Waasser</button>
+    <button class="chipbtn" type="button" data-f="offall" aria-pressed="false">Offall</button>
+    <button class="chipbtn" type="button" data-f="mobiliteit" aria-pressed="false">Mobilitéit</button>
+    <button class="chipbtn" type="button" data-f="energie" aria-pressed="false">Energie</button>
+  </nav>
+
+  <section class="list" id="list"></section>
+
+  <section class="box dashed" aria-labelledby="otherH">
+    <h2 id="otherH">Aner Projeten oder Bemierkungen</h2>
+    <div class="field"><label for="other">Projeten, déi hei feelen (Titel, Joer, e puer Sätz), oder soss eppes</label><textarea id="other"></textarea></div>
+    <div class="field"><label for="otherPdf">PDF dozou (optional)</label><input type="file" id="otherPdf" accept="application/pdf,.pdf" multiple></div>
+  </section>
+
+  <div id="doneMsg" class="done" hidden>
+    <h2>Merci fir Är Hëllef!</h2>
+    <p style="margin:0">Är Äntwerten sinn ofgeschéckt. Wann Dir nach méi wësst, kënnt Dir d'Säit nei lueden an nach eng Kéier ausfëllen.</p>
+  </div>
+</div>
+
+<div class="sendbar">
+  <div class="in">
+    <span class="count" id="count">Nach näischt ausgefëllt</span>
+    <span class="status" id="status" role="status"></span>
+    <button class="btn" type="button" id="send" disabled>Ofschécken</button>
+  </div>
+</div>
+
+<script>
+const FORM_URL="https://submit.jotform.com/submit/262785229368067/";
+const FORM_ID="262785229368067";
+const F_NAME="q2_q2_textbox0", F_NOTES="q9_q9_textarea7", F_FILES="q12_dokumentatiounenpdf[]";
+const THEMES={buedem:"Buedem",loft:"Loft",waasser:"Waasser",offall:"Offall",mobiliteit:"Mobilitéit",energie:"Energie"};
+const YEARS=["2025/26","2024/25","2023/24","2022/23","2021/22","2020/21","2019/20","2018/19","2017/18","2016/17","2015/16","2014/15","2013/14","2012/13","2011/12","2010/11","Weess net"];
+// titel, themen, feelt Joer, feelt Resumé, Jotform-Feld Joer, Jotform-Feld Resumé (null = Resumé geet an d'Bemierkungen)
+const P=[
+ ["Mini-Zär bauen",["buedem"],1,1,"q14_minizarBauen","q15_minizarBauen"],
+ ["Aquaponik-Anlag",["buedem","waasser"],1,1,"q16_aquaponikanlag","q17_aquaponikanlag"],
+ ["Ekologesch Beienhaltung",["buedem"],1,1,"q18_ekologeschBeienhaltung","q19_ekologeschBeienhaltung19"],
+ ["Destillatioun an Amaache vun Uebst",["buedem"],1,1,"q20_destillatiounAn","q21_destillatiounAn21"],
+ ["Natierlech vs. konventionell Kosmetik",["buedem"],1,1,"q22_natierlechVs","q23_natierlechVs"],
+ ["Eng ëmweltfrëndlech Alternativ zum Reesen",["loft","mobiliteit"],0,1,"q24_engemweltfrendlech","q25_engemweltfrendlech25"],
+ ["Planung vun engem Waasserrad fir d’Kalbermillen",["waasser"],1,1,"q26_waasserradFir","q27_waasserradFir27"],
+ ["Fair Clothes",["offall"],0,1,"q30_fairClothes","q31_fairClothes31"],
+ ["Handyen – Nohaltegkeetscheck",["offall"],1,1,"q32_handyen","q33_handyen"],
+ ["Fitnessgeräter zur Stroumerzeugung notzen",["energie"],1,1,"q34_fitnessgeraterZur","q35_fitnessgeraterZur35"],
+ ["Smart Garden",["buedem","waasser","energie"],1,0,"q37_smartGarden",null],
+ ["Regional & Saisonal – Véier Joreszäiten",["buedem"],1,0,"q38_regional",null],
+ ["Mikroplastik an der Kosmetik",["buedem","waasser","offall"],1,0,"q39_mikroplastikAn",null],
+ ["Bëschhotel (Waldhotel)",["buedem","offall"],1,0,"q40_beschhotelwaldhotel",null],
+ ["The key to building sustainably",["buedem","loft","energie"],1,0,"q41_theKey",null],
+ ["Greenbalcony",["buedem","waasser","energie"],1,0,"q42_greenbalcony",null],
+ ["Matwuessend Zär",["buedem","waasser","energie"],1,0,"q43_matwuessendZar",null],
+ ["Dörrautomat",["buedem","offall","energie"],1,0,"q44_dorrautomat",null],
+ ["Liicht aus Wand a Sonn — nohalteg Stroossebeleuchtung",["loft","energie"],1,0,"q45_liichtAus",null],
+ ["Solarbedriwwent Stand-up Paddle",["loft","mobiliteit","energie"],1,0,"q46_solarbedriwwentStandup",null],
+ ["Wiederstatioun",["loft","energie"],1,0,"q47_wiederstatioun",null],
+ ["Solarmuseksbox",["loft","energie"],1,0,"q48_solarmuseksbox",null],
+ ["Vollautomatiséiert Aquarium",["waasser"],1,0,"q49_vollautomatiseiertAquarium",null],
+ ["Solarkillschaf",["waasser","energie"],1,0,"q50_solarkillschaf",null],
+ ["PolyPath – De Wee zu enger nohalteger Plastiknotzung",["offall"],1,0,"q51_polypath",null],
+ ["Give Box",["offall"],1,0,"q52_giveBox",null],
+ ["Think different, you are significant!",["mobiliteit"],1,0,"q53_thinkDifferent",null],
+ ["ReVELOtioun",["mobiliteit"],1,0,"q54_revelotioun",null],
+ ["CycleSmart – Zertifizéierung fir vëlosfrëndlech Schoulen",["mobiliteit"],1,0,"q55_cyclesmart",null],
+ ["Powersolarheizung – Solarthermesch Kollektoren",["energie"],1,0,"q56_powersolarheizung",null],
+ ["Léierstatioun iwwer Photovoltaik",["energie"],1,0,"q57_leierstatiounIwwer",null],
+ ["Solarplug Station",["energie"],1,0,"q58_solarplugStation",null],
+];
+const items=[];let filter="";
+
+function el(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==="class")e.className=v;else if(k==="text")e.textContent=v;else e.setAttribute(k,v)}for(const c of kids)if(c!=null)e.append(c);return e}
+
+P.forEach(([titel,themen,needYear,needRes,fYear,fRes],i)=>{
+  const pills=el("span",{class:"pills"});
+  const sel=el("select",{id:"y"+i},el("option",{value:"",text:"– Schouljoer wielen –"}),...YEARS.map(y=>el("option",{value:y,text:y})));
+  const ta=el("textarea",{id:"r"+i,placeholder:"Ëm wat goung et? Wat gouf gebaut, gemooss oder ënnersicht? Wat ass erauskomm? Lëtzebuergesch, Däitsch oder Franséisch."});
+  const file=el("input",{type:"file",id:"p"+i,accept:"application/pdf,.pdf",multiple:""});
+  const body=el("div",{class:"body"});
+  if(needYear)body.append(el("div",{class:"field"},el("label",{for:"y"+i,text:"Schouljoer"}),sel));
+  body.append(el("div",{class:"field"},el("label",{for:"r"+i,text:needRes?"Resumé (feelt nach)":"Resumé (gëtt et schonn, nëmmen ergänzen, wann néideg)"}),ta));
+  body.append(el("div",{class:"field"},el("label",{for:"p"+i,text:"Dokumentatioun als PDF"}),file,el("span",{class:"hint",text:"Dir kënnt och e PDF eroplueden amplaz e Resumé ze schreiwen."})));
+  const d=el("details",{class:"item"},el("summary",{},el("span",{class:"t",text:titel}),el("span",{class:"themes"},...themen.map(t=>el("span",{class:"theme",text:THEMES[t]}))),pills),body);
+  const it={titel,themen,needYear,needRes,fYear,fRes,sel,ta,file,pills,d};
+  for(const x of[sel,ta,file])x.addEventListener(x===file?"change":"input",()=>{paint(it);count()});
+  items.push(it);paint(it);document.getElementById("list").append(d);
+});
+
+function has(it){return{y:!!it.sel.value,r:!!it.ta.value.trim(),p:it.file.files.length>0}}
+function paint(it){
+  const h=has(it);it.pills.replaceChildren();
+  const yOk=!it.needYear||h.y, rOk=!it.needRes||h.r||h.p;
+  if(h.y||h.r||h.p){it.pills.append(el("span",{class:"pill ok",text:"✓ ausgefëllt"}))}
+  if(!yOk)it.pills.append(el("span",{class:"pill miss",text:"Joer feelt"}));
+  if(!rOk)it.pills.append(el("span",{class:"pill miss",text:"Resumé feelt"}));
+}
+function touched(){return items.filter(it=>{const h=has(it);return h.y||h.r||h.p})}
+function count(){
+  const n=touched().length, extra=document.getElementById("other").value.trim()||document.getElementById("otherPdf").files.length;
+  document.getElementById("count").textContent=n?(n===1?"1 Projet ausgefëllt":n+" Projeten ausgefëllt"):(extra?"Bemierkung ausgefëllt":"Nach näischt ausgefëllt");
+  document.getElementById("send").disabled=!(n||extra);
+}
+document.getElementById("other").addEventListener("input",count);
+document.getElementById("otherPdf").addEventListener("change",count);
+document.querySelectorAll("[data-f]").forEach(b=>b.addEventListener("click",()=>{
+  filter=b.dataset.f;document.querySelectorAll("[data-f]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  for(const it of items)it.d.hidden=!!filter&&!it.themen.includes(filter);
+}));
+
+function renamed(f,prefix){const clean=prefix.replace(/[\\/:*?"<>|]/g,"").slice(0,60);try{return new File([f],clean+" – "+f.name,{type:f.type||"application/pdf"})}catch(e){return f}}
+
+document.getElementById("send").addEventListener("click",async()=>{
+  const btn=document.getElementById("send"),st=document.getElementById("status");
+  const files=[];let total=0;const notes=[];
+  const fd=new FormData();
+  fd.append("formID",FORM_ID);fd.append("simple_spc",FORM_ID+"-"+FORM_ID);
+  fd.append(F_NAME,document.getElementById("name").value.trim());
+  for(const it of touched()){
+    const y=it.sel.value, r=it.ta.value.trim();
+    if(y)fd.append(it.fYear,y);
+    if(r){if(it.fRes)fd.append(it.fRes,r);else notes.push("RESUMÉ – "+it.titel+":\n"+r)}
+    for(const f of it.file.files){files.push(renamed(f,it.titel));total+=f.size}
+  }
+  for(const f of document.getElementById("otherPdf").files){files.push(renamed(f,"Aneren Projet"));total+=f.size}
+  if(total>90*1024*1024){st.textContent="D'PDFen zesummen si ze grouss (méi wéi 90 MB). Schéckt w.e.g. manner op eemol.";return}
+  const other=document.getElementById("other").value.trim();if(other)notes.push(other);
+  fd.append(F_NOTES,notes.join("\n\n"));
+  for(const f of files)fd.append(F_FILES,f,f.name);
+  btn.disabled=true;st.textContent=files.length?"Gëtt ofgeschéckt, d'PDFen lueden erop …":"Gëtt ofgeschéckt …";
+  try{
+    await fetch(FORM_URL,{method:"POST",body:fd,mode:"no-cors"});
+    document.querySelector(".list").hidden=true;document.querySelector(".filters").hidden=true;
+    document.querySelectorAll(".box").forEach(b=>b.hidden=true);
+    document.getElementById("doneMsg").hidden=false;document.querySelector(".sendbar").hidden=true;
+    window.scrollTo({top:0,behavior:"smooth"});
+  }catch(e){st.textContent="Ofschécken huet net geklappt. Kuckt d'Internetverbindung a probéiert et nach eng Kéier.";btn.disabled=false}
+});
+count();
+</script>
+</body>
+</html>
