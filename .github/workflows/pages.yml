@@ -1,0 +1,44 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # D'Säit läit op GitHub Pages ënner /gse-ltett-sektioun/, dofir ginn d'Linken,
+      # déi mat "/" ufänken (fir Netlify), hei op relativ Linken ëmgeschriwwen.
+      - name: Säit zesummestellen
+        run: |
+          mkdir _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude '_site' ./ _site/
+          cd _site
+          sed -i -E "s#(href|src)=(['\"])/pages/#\1=\2pages/#g" index.html projetarchiv.html
+          for f in pages/*.html; do
+            sed -i -E "s#(href|src)=(['\"])/pages/#\1=\2../pages/#g; s#(href|src)=(['\"])/(['\"\#])#\1=\2../\3#g" "$f"
+          done
+          if grep -nE "(href|src)=['\"]/[^/]" index.html pages/*.html; then echo "Absolut Linken bliwwen"; exit 1; fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
