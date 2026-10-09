@@ -162,7 +162,7 @@ P.forEach(([titel,themen,needYear,needRes,fYear,fRes],i)=>{
   body.append(el("div",{class:"field"},el("label",{for:"p"+i,text:"Dokumentatioun als PDF"}),file,el("span",{class:"hint",text:"Dir kënnt och e PDF eroplueden amplaz e Resumé ze schreiwen."})));
   const d=el("details",{class:"item"},el("summary",{},el("span",{class:"t",text:titel}),el("span",{class:"themes"},...themen.map(t=>el("span",{class:"theme",text:THEMES[t]}))),pills),body);
   const it={titel,themen,needYear,needRes,fYear,fRes,sel,ta,file,pills,d};
-  for(const x of[sel,ta,file])x.addEventListener(x===file?"change":"input",()=>{paint(it);count()});
+  for(const x of[sel,ta,file])for(const ev of["input","change"])x.addEventListener(ev,()=>{paint(it);count()});
   items.push(it);paint(it);document.getElementById("list").append(d);
 });
 
