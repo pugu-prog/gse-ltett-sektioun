@@ -1,0 +1,10 @@
+Schrëften vun der GSE-Websäit (lokal gespäichert, keng Verbindung zu Google)
+
+Quicksand – Copyright The Quicksand Project Authors
+Carlito – Copyright tyPoland Lukasz Dziedzic (Lato-Basis), Google
+Bricolage Grotesque – Copyright The Bricolage Grotesque Project Authors
+Source Sans 3 – Copyright Adobe
+
+All véier Schrëften stinn ënner der SIL Open Font License 1.1:
+https://openfontlicense.org
+Ursprénglech erofgelueden vu Google Fonts (fonts.google.com).
