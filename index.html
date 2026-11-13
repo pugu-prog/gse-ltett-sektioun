@@ -25,7 +25,12 @@
   .ht-block.b .ht-head{background:linear-gradient(90deg,var(--darkblue),var(--darkblue-80))}
   .ht-block.c .ht-head{background:linear-gradient(90deg,var(--lightblue),var(--lightblue-80))}
   .ht-row{display:flex;align-items:center;gap:12px;padding:10px 20px;font-size:.95rem;border-top:1px solid #f1f4f6}
-  .ht-row .hrs{margin-left:auto;font-weight:800;color:var(--darkblue)}
+  .ht-row .hrs{margin-left:auto;width:48px;text-align:center;font-weight:800;color:var(--darkblue)}
+  .ht-row .coef{width:48px;text-align:center;font-weight:700;color:var(--muted)}
+  .ht-head .ht-hcol{width:48px;text-align:center;margin-left:0}
+  .ht-head .ht-hcol.first{margin-left:auto}
+  .bf{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.04em;color:white;background:var(--green);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+  .ht-legend{padding:12px 20px;font-size:.82rem;color:var(--muted);line-height:1.5}
   .ht-total{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:var(--soft);font-family:var(--font-heading);font-weight:800;font-size:1.1rem;color:var(--darkblue)}
 
   /* ===== GSE Projeten compact grid ===== */
@@ -234,27 +239,28 @@
   <div class="horaire-layout">
     <div class="horaire-table horaire-card">
       <div class="ht-block a">
-        <div class="ht-head"><span class="ht-badge">A</span> Spezialisatioun <span class="ht-hcol">Stonnen</span></div>
-        <div class="ht-row"><span>🌿</span>Ecologie<span class="hrs">4</span></div>
-        <div class="ht-row"><span>⚖️</span>Aspects économiques et juridiques du dév. durable<span class="hrs">2</span></div>
-        <div class="ht-row"><span>💡</span>Environnement et technologies<span class="hrs">4</span></div>
-        <div class="ht-row"><span>⚛️</span>Physique<span class="hrs">2</span></div>
-        <div class="ht-row"><span>🔎</span>Études de cas<span class="hrs">1</span></div>
-        <div class="ht-row"><span>👤</span>Projet personnel encadré<span class="hrs">4</span></div>
-        <div class="ht-row"><span>💼</span>Stage (3 Wochen)<span class="hrs">–</span></div>
+        <div class="ht-head"><span class="ht-badge">A</span> Spezialisatioun <span class="ht-hcol first">Stonnen</span><span class="ht-hcol">Koeff.</span></div>
+        <div class="ht-row"><span>🌿</span>Ecologie<span class="bf" title="Branche fondamentale">BF</span><span class="hrs">4</span><span class="coef">4</span></div>
+        <div class="ht-row"><span>⚖️</span>Aspects économiques et juridiques du dév. durable<span class="hrs">2</span><span class="coef">3</span></div>
+        <div class="ht-row"><span>💡</span>Environnement et technologies<span class="bf" title="Branche fondamentale">BF</span><span class="hrs">4</span><span class="coef">4</span></div>
+        <div class="ht-row"><span>⚛️</span>Physique<span class="hrs">2</span><span class="coef">3</span></div>
+        <div class="ht-row"><span>🔎</span>Études de cas<span class="hrs">1</span><span class="coef">2</span></div>
+        <div class="ht-row"><span>👤</span>Projet personnel encadré<span class="bf" title="Branche fondamentale">BF</span><span class="hrs">4</span><span class="coef">4</span></div>
+        <div class="ht-row"><span>💼</span>Stage (3 Wochen)<span class="hrs">–</span><span class="coef">2</span></div>
       </div>
       <div class="ht-block b">
-        <div class="ht-head"><span class="ht-badge">B</span> Allgemeng Formatioun</div>
-        <div class="ht-row"><span>🌐</span>Connaissance du monde contemporain<span class="hrs">2</span></div>
-        <div class="ht-row"><span>🏃</span>Éducation physique et sportive<span class="hrs">2</span></div>
+        <div class="ht-head"><span class="ht-badge">B</span> Allgemeng Formatioun <span class="ht-hcol first">Stonnen</span><span class="ht-hcol">Koeff.</span></div>
+        <div class="ht-row"><span>🌐</span>Connaissance du monde contemporain<span class="hrs">2</span><span class="coef">2</span></div>
+        <div class="ht-row"><span>🏃</span>Éducation physique et sportive<span class="hrs">2</span><span class="coef">1</span></div>
       </div>
       <div class="ht-block c">
-        <div class="ht-head"><span class="ht-badge">C</span> Sproochen a Mathematik</div>
-        <div class="ht-row"><span>🗣️</span>Allemand oder Franséisch<span class="hrs">3</span></div>
-        <div class="ht-row"><span>💬</span>Englesch<span class="hrs">3</span></div>
-        <div class="ht-row"><span>🧮</span>Mathematik<span class="hrs">5</span></div>
+        <div class="ht-head"><span class="ht-badge">C</span> Sproochen a Mathematik <span class="ht-hcol first">Stonnen</span><span class="ht-hcol">Koeff.</span></div>
+        <div class="ht-row"><span>🗣️</span>Allemand oder Franséisch<span class="hrs">3</span><span class="coef">3</span></div>
+        <div class="ht-row"><span>💬</span>Englesch<span class="hrs">3</span><span class="coef">3</span></div>
+        <div class="ht-row"><span>🧮</span>Mathematik<span class="hrs">5</span><span class="coef">4</span></div>
       </div>
-      <div class="ht-total"><span>TOTAL</span><span>32</span></div>
+      <div class="ht-total"><span>TOTAL</span><span style="display:flex"><span style="width:48px;text-align:center">32</span><span style="width:48px"></span></span></div>
+      <div class="ht-legend"><b>Koeff.</b> = Koeffizient vum Fach · <span class="bf">BF</span> = Branche fondamentale<br>Ecologie an Environnement et technologies: all Kéier 3 Stonne Cours an 1 Stonn TP. Quell: Grille vum CNES-GSE, 2. Dezember 2024.</div>
     </div>
 
     <aside class="info-stack">
@@ -269,7 +275,7 @@
           fir verantwortungsvoll Léisunge fir eis Ëmwelt ze entwéckelen.
         </p>
         <ul>
-          <li><strong>Praxisno:</strong> vill Projeten, Étuden de cas a Feldaarbechten.</li>
+          <li><strong>Praxisno:</strong> vill Projeten, Étuden de cas an TP'en (praktesch Versich).</li>
           <li><strong>Interdisziplinär:</strong> Verbindung vu wëssenschaftlechen, techneschen a soziale Froen.</li>
           <li><strong>Zukunftsorientéiert:</strong> Virbereedung op Beruffer am Ëmwelt- a Ressourcenschutz.</li>
         </ul>
@@ -294,9 +300,9 @@
     <div class="ppren-col">
       <h4>📋 PPREN Ablauf (Iwwerbléck)</h4>
       <div class="ppren-step"><div class="num">1</div><div><b>Planung</b><span class="sub">🎯 Ziler · 🚩 Meilesteng</span></div></div>
-      <div class="ppren-step"><div class="num">2</div><div><b>Ëmsetzung vum Projet</b><span class="sub">🛠️ Praktesch Ëmsetzung · 📖 Theoretesch Ëmsetzung</span></div></div>
-      <div class="ppren-step"><div class="num">3</div><div><b>Dokumentatioun</b><span class="sub">📅 Wochenberichter · 📝 Schrëftleche Bericht</span></div></div>
-      <div class="ppren-step"><div class="num">4</div><div><b>Bewertung / Reflexioun</b><span class="sub">✒️ Schrëftlech Preiwung</span></div></div>
+      <div class="ppren-step"><div class="num">2</div><div><b>Ëmsetzung vum Projet</b><span class="sub">🛠️ Praktesch Ëmsetzung · 📖 Recherche</span></div></div>
+      <div class="ppren-step"><div class="num">3</div><div><b>Dokumentatioun</b><span class="sub">📅 Wochenberichter · 📝 Dokumentatioun</span></div></div>
+      <div class="ppren-step"><div class="num">4</div><div><b>Reflexioun</b><span class="sub">✒️ Schrëftlech Reflexioun</span></div></div>
     </div>
 
     <div class="ppren-col">
@@ -371,7 +377,7 @@
       <span class="pc-icon">💧</span>
       <h4>Waasser</h4>
       <ul>
-        <li>Vollautomatiséiert Aquarium</li>
+        <li>Vollautomatiséierten Aquarium</li>
         <li>Solarkillschaf</li>
         <li>Vertical Garden</li>
         <li>Matwuessend Zär</li>
@@ -558,7 +564,7 @@
   <div>📍 Lycée Technique d’Ettelbruck</div>
   <div>📧 <a href="mailto:gse@ltett.lu">gse@ltett.lu</a></div>
   <div>📸 <a href="https://instagram.com/gse.ltett" target="_blank">@gse.ltett</a></div>
-  <div class="slogan">op d'Zukunft spezialiséiert · <a href="https://www.ltett.lu" target="_blank">www.ltett.lu</a><br><small style="font-weight:400;opacity:.8">© 2025 LTEtt – GSE</small></div>
+  <div class="slogan">op d'Zukunft spezialiséiert · <a href="https://www.ltett.lu" target="_blank">www.ltett.lu</a><br><small style="font-weight:400;opacity:.8">© 2025 LTEtt – GSE · <a href="/pages/bildnoweis">Bildnoweis</a></small></div>
 </section>
 
 </main>
